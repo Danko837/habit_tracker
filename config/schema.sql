@@ -1,0 +1,51 @@
+CREATE DATABASE IF NOT EXISTS habit_tracker
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE habit_tracker;
+
+CREATE TABLE IF NOT EXISTS users (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(190) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uk_users_email (email)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS habits (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id BIGINT UNSIGNED NOT NULL,
+  title VARCHAR(150) NOT NULL,
+  description TEXT NULL,
+  frequency ENUM('daily', 'weekly', 'custom') NOT NULL DEFAULT 'daily',
+  target_count SMALLINT UNSIGNED NOT NULL DEFAULT 1,
+  start_date DATE NOT NULL,
+  is_active TINYINT(1) NOT NULL DEFAULT 1,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  KEY idx_habits_user_id (user_id),
+  CONSTRAINT fk_habits_user
+    FOREIGN KEY (user_id)
+    REFERENCES users(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS habit_logs (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  habit_id BIGINT UNSIGNED NOT NULL,
+  log_date DATE NOT NULL,
+  completed TINYINT(1) NOT NULL DEFAULT 1,
+  notes VARCHAR(500) NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY idx_habit_logs_habit_id (habit_id),
+  KEY idx_habit_logs_log_date (log_date),
+  UNIQUE KEY uk_habit_logs_habit_date (habit_id, log_date),
+  CONSTRAINT fk_habit_logs_habit
+    FOREIGN KEY (habit_id)
+    REFERENCES habits(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE=InnoDB;
