@@ -1,6 +1,6 @@
 # Habit Tracker
 
-Jednoduchý školský PHP OOP projekt bez frameworku.
+Jednoduchý PHP OOP projekt bez frameworku.
 
 ## Funkcie
 - registrácia používateľa
@@ -12,24 +12,6 @@ Jednoduchý školský PHP OOP projekt bez frameworku.
 - štatistika pokroku
 - MySQL databáza s cudzími kľúčmi
 - jednoduchá MVC/OOP štruktúra
-
-## Inštalácia v XAMPP
-1. Skopíruj projekt do `htdocs/habit_tracker`.
-2. Spusti Apache a MySQL.
-3. V phpMyAdmin importuj súbor `config/schema.sql`.
-4. Skontroluj údaje v `config/Database.php`.
-5. Najistejší spôsob spustenia:
-
-```bash
-cd C:\xampp\htdocs\habit_tracker
-php -S localhost:8000 -t public
-```
-
-Potom otvor:
-
-```text
-http://localhost:8000
-```
 
 ## Štruktúra
 ```text
@@ -47,5 +29,3 @@ public/assets/style.css  dizajn
 - `habits`
 - `habit_logs`
 
-## Poznámka ku skúške
-Projekt používa PDO prepared statements, sessions, OOP triedy, CRUD operácie a relácie v databáze cez foreign keys.
