@@ -8,7 +8,7 @@ $active = $active ?? '';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= e($title) ?></title>
-    <link rel="stylesheet" href="<?= url('/habit_tracker/public/assets/style.css') ?>">
+    <link rel="stylesheet" href="<?= url('/assets/style.css') ?>">
 </head>
 <body>
 <nav class="topbar">
